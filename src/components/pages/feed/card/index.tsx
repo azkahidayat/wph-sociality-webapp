@@ -11,9 +11,10 @@ import {
   UserInfoSubTitle,
   UserInfoTitle,
 } from './feed-card-user-info';
-import { ModalLikesContent } from './modal-likes-open';
 import { useFeedActions } from '@/hooks';
 import { ExpandableText } from '@/components/container';
+import { ModalCommentContent } from '../modal/modal-comment-content';
+import { ModalLikesContent } from '../modal/modal-likes-content';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -42,9 +43,15 @@ export const FeedCardItem = ({ post }: FeedCardItemProps) => {
       openDialog({
         title: 'Likes',
         content: <ModalLikesContent postId={post.id} />,
+        // className: 'md:max-w-[1200px]',
       });
     },
-    onShowComments: () => {},
+    onShowComments: () => {
+      openDialog({
+        content: <ModalCommentContent post={post} />,
+        className: 'md:max-w-[1200px] p-0!',
+      });
+    },
     onShowShare: () => {},
   });
 
