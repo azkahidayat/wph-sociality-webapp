@@ -1,5 +1,7 @@
 'use client';
 
+import FooterTabs from '@/components/pages/user/footer-tabs';
+import Navbar from '@/components/pages/user/navbar';
 import { useAuth } from '@/hooks/use-auth';
 
 export default function DashboardLayout({
@@ -18,11 +20,10 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className='min-h-screen'>
-      <nav className=''>
-        <div className='mx-auto w-full max-w-7xl px-4 py-4'></div>
-      </nav>
-      <main className='mx-auto w-full  max-w-7xl px-4 py-8'>{children}</main>
+    <div className='relative min-h-screen'>
+      <Navbar />
+      <main className='relative top-[64px] base-container-y'>{children}</main>
+      <FooterTabs />
     </div>
   );
 }
