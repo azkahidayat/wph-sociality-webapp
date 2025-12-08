@@ -1,16 +1,14 @@
-import { commentService } from '@/services';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   UserInfo,
   UserInfoAvatar,
   UserInfoContent,
   UserInfoTitle,
   UserInfoSubTitle,
-} from '../card/feed-card-user-info';
+} from '../../../container/user-info';
 import dayjs from 'dayjs';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Bookmark, Smile } from 'lucide-react';
+import { Smile } from 'lucide-react';
 import Image from 'next/image';
 import { Post } from '@/types';
 import Spin from '@/components/ui/spin';
@@ -116,9 +114,9 @@ export const ModalCommentContent = ({ post }: Props) => {
           </div>
         </div>
 
-        <div className='absolute bottom-0  w-full mx-0 px-8 backdrop-blur-lg py-2'>
-          <div className='flex-between'>
-            <FeedCardActions>
+        <div className='absolute bottom-0 space-y-2 w-full mx-0 px-8 backdrop-blur-lg py-2'>
+          <div className='flex-between px-1.5'>
+            <FeedCardActions className='invisible md:visible'>
               {iconActions.map(
                 (icon, idx) =>
                   idx < 3 && <FeedCardActionsItem data={icon} key={idx} />
