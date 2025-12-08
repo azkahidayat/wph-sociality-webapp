@@ -2,12 +2,17 @@ import { meServices } from '@/services';
 import { RootState } from '@/store';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout, setLoading, setUser } from '@/store/slices/auth-slice';
+import { Pagination } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
+export const meKeys = {
+  me: ['auth', 'me'] as const,
+  posts: (params?: Partial<Pagination>) => ['me', 'posts', params] as const,
+};
+
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-
   const { token, user, isAuthenticated, isLoading } = useAppSelector(
     (state: RootState) => state.auth
   );
@@ -17,35 +22,37 @@ export const useAuth = () => {
     isLoading: isFetching,
     error,
   } = useQuery({
-    queryKey: ['auth', 'me'],
+    queryKey: meKeys.me,
     queryFn: meServices.me,
     enabled: !!token && !user,
     retry: false,
     staleTime: Infinity,
   });
 
-  // Update Redux when user data is fetched
   React.useEffect(() => {
     if (data?.data) {
-      dispatch(setUser(data.data));
+      // Only dispatch if data is in correct format (nested with profile and stats)
+      if (data.data.profile && data.data.stats) {
+        dispatch(setUser(data.data));
+      }
     }
   }, [data, dispatch]);
 
-  // Handle fetch error (invalid token)
   React.useEffect(() => {
     if (error) {
       dispatch(logout());
     }
   }, [error, dispatch]);
 
-  // Update loading state
   React.useEffect(() => {
     if (!token) {
       dispatch(setLoading(false));
     } else if (isFetching) {
       dispatch(setLoading(true));
+    } else if (user) {
+      dispatch(setLoading(false));
     }
-  }, [token, isFetching, dispatch]);
+  }, [token, isFetching, user, dispatch]);
 
   return {
     user,

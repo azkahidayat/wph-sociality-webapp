@@ -1,0 +1,54 @@
+'use client';
+import { ImageLogo } from '@/components/container';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import React from 'react';
+
+type Props = {
+  title: string;
+  children: React.ReactNode;
+};
+
+const AuthCCard = ({ children, title }: Props) => {
+  return (
+    <div className='w-full mx-6'>
+      <Card
+        className={cn(
+          'bg-[#00000033] border-neutral-900',
+          'py-8 md:py-10 space-y-4 md:space-y-6'
+        )}
+      >
+        <CardHeader className='flex-center'>
+          <ImageLogo className='mx-auto ' />
+          <CardTitle className='text-xl-bold md:text-display-xs-bold text-center'>
+            {title}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>{children}</CardContent>
+      </Card>
+    </div>
+  );
+};
+
+type AuthCardBtnActionProps = {
+  q: string;
+  a: string;
+  src: string;
+};
+
+const AuthCardBtnAction = ({ a, q, src }: AuthCardBtnActionProps) => (
+  <div className='flex-center gap-1'>
+    <p className='text-center  flex text-sm-semibold md:text-md-semibold'>
+      {q}
+    </p>
+    <Link
+      href={src}
+      className='text-primary-300 hover:underline text-sm-semibold md:text-md-semibold'
+    >
+      {a}
+    </Link>
+  </div>
+);
+
+export { AuthCCard, AuthCardBtnAction };

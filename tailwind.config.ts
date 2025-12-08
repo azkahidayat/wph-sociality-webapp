@@ -25,7 +25,7 @@ const customTextPlugin = plugin(function ({ addUtilities }) {
     extrabold: '--font-weight-extrabold',
   };
 
-  const utilities: Record<string, any> = {};
+  const utilities: Record<string, Record<string, string>> = {};
 
   for (const [sizeKey, sizeVar] of Object.entries(textSizes)) {
     for (const [weightKey, weightVar] of Object.entries(fontWeights)) {
@@ -49,5 +49,31 @@ export default {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    'container-360',
+    'container-452',
+    'container-600',
+    'container-800',
+    'container-812',
+    'container-1200',
+  ],
+  theme: {
+    extend: {
+      keyframes: {
+        'slide-in-from-bottom': {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        'slide-out-to-bottom': {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(100%)' },
+        },
+      },
+      animation: {
+        'slide-in-from-bottom': 'slide-in-from-bottom 0.3s ease-out',
+        'slide-out-to-bottom': 'slide-out-to-bottom 0.3s ease-in',
+      },
+    },
+  },
   plugins: [customTextPlugin],
-} satisfies Config;
+} as Config;

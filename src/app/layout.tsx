@@ -5,7 +5,7 @@ import AuthProvider from '@/providers/auth-provider';
 import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
-  title: 'Your App',
+  title: 'Social App',
   description: 'Powered by SF Pro & Next.js',
 };
 
@@ -16,13 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className='dark' suppressHydrationWarning>
-      <body className='antialiased min-h-screen' data-scroll-behavior='smooth'>
+      <body className='antialiased' data-scroll-behavior='smooth'>
         <AppProvider>
           <AuthProvider>
             <ThemeProvider
               attribute='class'
               defaultTheme='dark'
-              enableSystem={false}
+              enableSystem
               disableTransitionOnChange
             >
               {children}
