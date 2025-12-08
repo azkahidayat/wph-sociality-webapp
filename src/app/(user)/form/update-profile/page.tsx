@@ -40,6 +40,7 @@ const UpdateProfile = () => {
     handleFileChange,
     handleChangePhotoClick,
     resetPreview,
+    handleAvatarError,
   } = useAvatarUpload({
     form,
     initialAvatarUrl: profile?.avatarUrl,
@@ -71,6 +72,7 @@ const UpdateProfile = () => {
           form={form}
           control={form.control}
           onSubmit={handleSubmit}
+          handleError={handleAvatarError}
           isSubmitting={updateProfileMutation.isPending}
         />
       </section>

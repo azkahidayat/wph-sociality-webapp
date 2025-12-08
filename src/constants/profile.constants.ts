@@ -6,6 +6,7 @@ export type EmptyPostState = {
   desc: string;
   label: string;
   action: string;
+  type?: 'back' | undefined;
 };
 
 export const EMPTY_POST_STATE: EmptyPostState = {
@@ -19,6 +20,14 @@ export const EMPTY_SAVED_STATE: EmptyPostState = {
   title: 'Save what interests you ',
   desc: 'come back anytime to watch or share you saved content, or add it to a collection ',
   label: 'Explore',
+  action: PATH.FEED,
+};
+
+export const EMPTY_OTHERS_POST: EmptyPostState = {
+  title: 'No Posts Yet',
+  desc: 'This user hasn’t uploaded any photos.',
+  label: 'Go Back',
+  type: 'back',
   action: PATH.FEED,
 };
 
